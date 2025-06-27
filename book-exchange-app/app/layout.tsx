@@ -1,11 +1,8 @@
-import Image from "next/image";
 import type { ReactNode } from "react";
 import { StoreProvider } from "./StoreProvider";
-import { Nav } from "./components/Nav";
-import ButtonAppBar from "./components/ButtonAppBar";
-
 import "./styles/globals.css";
 import styles from "./styles/layout.module.css";
+import Navigation from "./components/Navigation";
 
 interface Props {
   readonly children: ReactNode;
@@ -16,10 +13,8 @@ export default function RootLayout({ children }: Props) {
     <StoreProvider>
       <html lang="en">
         <body>
-          <section className={styles.container}>
-            <ButtonAppBar />
+            <Navigation />
             <main className={styles.main}>{children}</main>
-          </section>
         </body>
       </html>
     </StoreProvider>

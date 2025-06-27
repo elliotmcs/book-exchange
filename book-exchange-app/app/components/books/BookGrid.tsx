@@ -36,8 +36,8 @@ type GridItemProps = {
 }
 
 type BookGridProps = {
-    userIds: String[],
-    tagIds: String[]
+    userIds?: String[],
+    tagIds?: String[]
 }
 
 const getAuthHeaders = () => {
@@ -94,15 +94,16 @@ const GridItem = ( props: GridItemProps ) => {
 
 const BookGrid = async (props: BookGridProps) => {
     const books: BookWithUser[] = await getBooksWithUsers()
+    const { tagIds, userIds } = props
 
     return <Grid container spacing={2}>
         { books.filter((book: BookWithUser) => {
             let include = true
-            if (props.tagIds.length > 0) {
-                include &&= book.tagIds.filter(tagId => props.tagIds.includes(tagId)).length > 0
+            if (tagIds && tagIds.length > 0) {
+                include &&= book.tagIds.filter(tagId => tagIds.includes(tagId)).length > 0
             }
-            if (props.userIds.length > 0) {
-                include &&= props.userIds.includes(book.userId)
+            if (userIds && userIds.length > 0) {
+                include &&= userIds.includes(book.userId)
             }
             return include
         }).map((book: BookWithUser) => 
